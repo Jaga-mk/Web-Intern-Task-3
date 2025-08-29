@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ApexPlanet Internship Portfolio</title>
+  <style>
+    :root {
+      --blue: #2563eb;
+      --dark: #111;
+      --light: #f4f6f9;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+      padding-top: 65px; /* For fixed nav */
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--dark);
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    nav a:hover {
+      background: var(--blue);
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 80px 20px 100px;
+    }
+    h2 {
+      text-align: center;
+      color: var(--blue);
+      margin-bottom: 30px;
+    }
+
+    /* Typing effect */
+    #typing {
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--dark);
+      min-height: 40px;
+      margin-top: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Projects Grid */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    .card h3 {
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Contact form */
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    form button {
+      background: var(--blue);
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+    form button:hover {
+      background: #1e40af;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--dark);
+      color: white;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 20px;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 650px;
+      width: 100%;
+      padding: 25px 30px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+      user-select: none;
+    }
+    .modal-content h3 {
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .modal-content p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .close:hover {
+      color: var(--blue);
+    }
+
+    /* Modal Buttons */
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .modal-buttons button {
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .modal-buttons button:hover {
+      background: #1e40af;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" aria-label="Go to Home section">Home</a>
+  <a href="#projects" aria-label="Go to Projects section">Projects</a>
+  <a href="#about" aria-label="Go to About section">About</a>
+  <a href="#contact" aria-label="Go to Contact section">Contact</a>
+</nav>
+
+<section id="home" tabindex="-1">
+  <h2>🏡 Welcome</h2>
+  <p style="text-align:center; font-size:1.1rem;">Hi, I'm <b>Jagadeesh</b>, an Intern at <b>ApexPlanet</b>.</p>
+  <p id="typing"></p>
+</section>
+
+<section id="projects" tabindex="-1">
+  <h2>💻 My Projects</h2>
+  <div class="projects" id="projectContainer" aria-live="polite" aria-label="List of projects"></div>
+</section>
+
+<section id="about" tabindex="-1">
+  <h2>ℹ️ About Me</h2>
+  <p style="text-align:center; max-width:700px; margin:auto; font-size:1.05rem;">
+    I am passionate about web development and currently enhancing my skills through an internship at <b>ApexPlanet</b>.  
+    My focus is on building responsive, user-friendly, and interactive websites using <b>HTML, CSS, and JavaScript</b>.  
+    I love solving real-world problems with clean and efficient code. 🚀
+  </p>
+</section>
+
+<section id="contact" tabindex="-1">
+  <h2>📩 Contact</h2>
+  <form id="contactForm" aria-label="Contact form">
+    <input type="text" id="name" placeholder="Your Name" required aria-required="true" />
+    <input type="email" id="email" placeholder="Your Email" required aria-required="true" />
+    <textarea id="message" rows="4" placeholder="Your Message" required aria-required="true"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  © 2025 Jagadeesh | ApexPlanet Internship
+</footer>
+
+<!-- Modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="modal-content">
+    <span class="close" id="modalClose" role="button" tabindex="0" aria-label="Close modal">&times;</span>
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <img id="modalImg" src="" alt="Project screenshot" />
+    <div class="modal-buttons">
+      <button id="prevBtn" aria-label="Previous image">Prev</button>
+      <button id="nextBtn" aria-label="Next image">Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Typing animation
+  const typingText = "Aspiring Web Developer | HTML | CSS | JavaScript";
+  let idx = 0;
+  function typing() {
+    if (idx < typingText.length) {
+      document.getElementById("typing").textContent += typingText.charAt(idx);
+      idx++;
+      setTimeout(typing, 80);
+    }
+  }
+  typing();
+
+  // Projects data with multiple images for carousel
+  const projects = [
+    {
+      title: "🌐 Portfolio Site",
+      desc: "Responsive portfolio using HTML5/CSS3.",
+      images: [
+        "https://via.placeholder.com/600x350?text=Portfolio+1",
+        "https://via.placeholder.com/600x350?text=Portfolio+2"
+      ],
+    },
+    {
+      title: "🛒 E-Commerce UI",
+      desc: "Landing page for store with product cards.",
+      images: ["https://via.placeholder.com/600x350?text=E-Commerce"],
+    },
+    {
+      title: "🎠 JS Carousel",
+      desc: "Interactive image slider built with JavaScript.",
+      images: [
+        "https://via.placeholder.com/600x350?text=Carousel+1",
+        "https://via.placeholder.com/600x350?text=Carousel+2"
+      ],
+    },
+    {
+      title: "🤣 Joke Generator",
+      desc: "Fetches real-time jokes using an API and displays them interactively.",
+      images: ["https://via.placeholder.com/600x350?text=Joke+Generator"],
+    },
+  ];
+
+  // Render projects
+  const projectContainer = document.getElementById("projectContainer");
+  projects.forEach((project, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-pressed", "false");
+    card.setAttribute("aria-label", `Open details for project: ${project.title}`);
+    card.innerHTML = `
+      <h3>${project.title}</h3>
+      <p>${project.desc}</p>
+    `;
+    // Hover scale handled by CSS
+    // Click & keyboard accessibility for opening modal
+    card.addEventListener("click", () => openModal(index));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openModal(index);
+      }
+    });
+    projectContainer.appendChild(card);
+  });
+
+  // Modal control variables
+  const modal = document.getElementById("modal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalImg = document.getElementById("modalImg");
+  const modalClose = document.getElementById("modalClose");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  let currentProjectIndex = 0;
+  let currentImageIndex = 0;
+
+  function openModal(projectIndex) {
+    currentProjectIndex = projectIndex;
+    currentImageIndex = 0;
+    const project = projects[projectIndex];
+    modalTitle.textContent = project.title;
+    modalDesc.textContent = project.desc;
+    modalImg.src = project.images[currentImageIndex];
+    modalImg.alt = `${project.title} screenshot ${currentImageIndex + 1}`;
+    modal.style.display = "flex";
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  function showImage(index) {
+    const images = projects[currentProjectIndex].images;
+    currentImageIndex = (index + images.length) % images.length;
+    modalImg.src = images[currentImageIndex];
+    modalImg.alt = `${projects[currentProjectIndex].title} screenshot ${currentImageIndex + 1}`;
+  }
+
+  function nextImage() {
+    showImage(currentImageIndex + 1);
+  }
+  function prevImage() {
+    showImage(currentImageIndex - 1);
+  }
+
+  // Event listeners
+  modalClose.addEventListener("click", closeModal);
+  prevBtn.addEventListener("click", prevImage);
+  nextBtn.addEventListener("click", nextImage);
+
+  // Keyboard accessibility for modal
+  window.addEventListener("keydown", (e) => {
+    if (modal.style.display === "flex") {
+      if (e.key === "Escape") closeModal();
+      else if (e.key === "ArrowRight") nextImage();
+      else if (e.key === "ArrowLeft") prevImage();
+    }
+  });
+
+  // Close modal when clicking outside modal content
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Contact form validation and alert
+  const contactForm = document.getElementById("contactForm");
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    if (!name || !email || !message) {
+      alert("Please fill all fields.");
+      return;
+    }
+    alert("Message sent successfully!");
+    contactForm.reset();
+  });
+</script>
+
+</body>
+</html>
